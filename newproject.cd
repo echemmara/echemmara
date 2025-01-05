@@ -1,0 +1,2 @@
+npx hardhat compile
+npx hardhat deploy
