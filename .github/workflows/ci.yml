@@ -1,0 +1,50 @@
+name: Smart Contract CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx hardhat test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy to Testnet (Rinkeby/Goerli)
+        env:
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          RINKEBY_PRIVATE_KEY: ${{ secrets.RINKEBY_PRIVATE_KEY }}
+        run: |
+          npx hardhat run scripts/deploy.js --network rinkeby
