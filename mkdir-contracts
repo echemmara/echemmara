@@ -1,0 +1,8 @@
+# Create a directory named contracts
+mkdir contracts
+
+# Install Hardhat as a development dependency
+npm install --save-dev hardhat
+
+# Run the Hardhat setup wizard
+npx hardhat
