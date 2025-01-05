@@ -1,0 +1,4 @@
+mkdir halal-multivendor-platform
+cd halal-multivendor-platform
+npm init -y
+npm install express mongoose web3 dotenv cors body-parser
