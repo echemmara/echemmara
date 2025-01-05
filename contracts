@@ -1,0 +1,3 @@
+mkdir contracts
+npm install --save-dev hardhat
+npx hardhat
